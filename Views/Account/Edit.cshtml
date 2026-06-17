@@ -1,0 +1,76 @@
+@model HotelManageSystem.Models.Account
+
+@* MAPPED: [Use Case: UC5.2 - Edit Account]
+    TÁC NHÂN: Admin (Admin Rights / Root Access)
+*@
+
+@{
+    ViewData["Title"] = "Chỉnh Sửa Tài Khoản";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">✏️ Cập Nhật Thông Tin Tài Khoản</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Edit" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                @* Lưu trữ các trường ẩn bắt buộc để truyền ngược về cho hàm POST của Controller *@
+                <input type="hidden" asp-for="AccountId" />
+                <input type="hidden" asp-for="CreatedAt" />
+
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Tên Đăng Nhập</label>
+                    <input asp-for="Username" class="form-control" readonly />
+                    <small class="text-muted">Tên đăng nhập hệ thống không cho phép chỉnh sửa.</small>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Địa Chỉ Email</label>
+                    <input asp-for="Email" type="email" class="form-control" readonly style="background-color: #e9ecef;" />
+                    <small class="text-danger font-weight-bold">⚠️ Luật BR-10: Địa chỉ Email tuyệt đối không thể thay đổi sau khi tài khoản đã được tạo!</small>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PasswordHash" class="form-label">Mật Khẩu Mới (Để trống nếu không muốn đổi)</label>
+                    <input asp-for="PasswordHash" type="password" class="form-control" value="" placeholder="Nhập mật khẩu mới tại đây..." />
+                    <small class="text-muted">Nếu Admin nhập mật khẩu mới, hệ thống sẽ tự băm sang MD5 (BR-01).</small>
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label">Số Điện Thoại</label>
+                    <input asp-for="Phone" type="tel" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label">Trạng Thái Hoạt Động</label>
+                    <select asp-for="Status" class="form-select">
+                        <option value="Active">Active (Cho phép hoạt động)</option>
+                        <option value="Inactive">Inactive (Khóa quyền truy cập)</option>
+                    </select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RoleId" class="form-label">Điều Chỉnh Chức Vụ / Vai Trò</label>
+                    <select asp-for="RoleId" class="form-select" asp-items="ViewBag.RoleId"></select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">🔙 Hủy và quay lại</a>
+                    <button type="submit" class="btn btn-warning">💾 Lưu Thay Đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

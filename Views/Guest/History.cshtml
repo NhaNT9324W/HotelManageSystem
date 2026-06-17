@@ -1,0 +1,72 @@
+﻿@* MAPPED: [Use Case: UC15.4 - View Guest History]
+    TÁC NHÂN: Receptionist (Lễ tân đọc thông tin tổng hợp)
+*@
+
+@{
+    ViewData["Title"] = "Lịch Sử Lưu Trú Của Khách";
+}
+
+<div class="container mt-4">
+    <h2>📜 Nhật Ký & Lịch Sử Lưu Trú Khách Hàng</h2>
+    <h4>Khách hàng: <span class="text-primary">@ViewBag.GuestName</span></h4>
+    <hr />
+
+    <div class="alert alert-info">
+        ℹ️ <strong>Quy tắc kinh doanh BR-30:</strong> Màn hình tra cứu lịch sử lưu trú của khách hàng là dạng <strong>Chỉ Đọc (Read-only)</strong>. Lễ tân không thể trực tiếp thay đổi hay cập nhật thông tin đơn đặt phòng tại đây. Để chỉnh sửa các thông tin đặt phòng, vui lòng điều hướng sang phân hệ Quản lý đơn đặt phòng (UC13).
+    </div>
+
+    <div class="card shadow-sm mt-3">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">Danh Sách Đơn Đặt Phòng Trong Quá Khứ & Tương Lai (Luật BR-29)</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Mã Đơn (Booking ID)</th>
+                        <th>Số Phòng Gán</th>
+                        <th>Ngày Check-in Dự Kiến</th>
+                        <th>Ngày Check-out Dự Kiến</th>
+                        <th>Tổng Chi Phí</th>
+                        <th>Trạng Thái Đơn Hàng</th>
+                        <th>Ghi Chú Đặc Biệt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* Mock dữ liệu cấu trúc mẫu hiển thị để test bố cục trang lịch sử an toàn trước khi tích hợp code của bạn Bảo (Làm UC13) *@
+                    <tr>
+                        <td><strong>#RSV-90821</strong></td>
+                        <td>P102 (Single Deluxe)</td>
+                        <td>12/06/2026</td>
+                        <td>15/06/2026</td>
+                        <td>1,850,000 VND</td>
+                        <td><span class="badge bg-success">Completed (Đã Hoàn Thành)</span></td>
+                        <td>Khách yêu cầu phòng yên tĩnh không hút thuốc.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>#RSV-95432</strong></td>
+                        <td>P305 (VIP Suite)</td>
+                        <td>28/06/2026</td>
+                        <td>30/06/2026</td>
+                        <td>5,000,000 VND</td>
+                        <td><span class="badge bg-warning text-dark">Confirmed (Đã Xác Nhận)</span></td>
+                        <td>Khách đón tại sân bay lúc 14:00.</td>
+                    </tr>
+                    <tr class="table-light text-muted">
+                        <td><strong>#RSV-81023</strong></td>
+                        <td>P201 (Double Standard)</td>
+                        <td>01/05/2026</td>
+                        <td>03/05/2026</td>
+                        <td>0 VND</td>
+                        <td><span class="badge bg-danger">Cancelled (Đã Hủy Bỏ)</span></td>
+                        <td>Hủy do thay đổi lịch trình công tác đột xuất.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại phân hệ quản lý khách</a>
+    </div>
+</div>

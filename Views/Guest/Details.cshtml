@@ -1,0 +1,69 @@
+﻿@model HotelManageSystem.Models.Guest
+
+@* MAPPED: [Use Case: UC15.2 - View Guest Profile]
+    TÁC NHÂN: Giao diện hiển thị chung dạng Read-only (Lễ tân, Admin, Manager đều đọc được)
+*@
+
+@{
+    ViewData["Title"] = "Chi Tiết Hồ Sơ Khách";
+}
+
+<div class="container mt-4" style="max-width: 650px;">
+    <div class="card shadow">
+        <div class="card-header bg-info text-dark">
+            <h4 class="mb-0">👁️ Thông Tin Chi Tiết Hồ Sơ Khách Hàng</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered detail-table mb-4">
+                <tbody>
+                    <tr>
+                        <th style="width: 35%;" class="table-dark">Mã Khách Hàng (ID)</th>
+                        <td><strong>@Model.GuestId</strong></td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Họ và Tên</th>
+                        <td>@Model.FullName</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Giới Tính</th>
+                        <td>@Model.Gender</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Ngày Sinh</th>
+                        <td>@(Model.DateOfBirth.HasValue ? Model.DateOfBirth.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Quốc Tịch</th>
+                        <td>@Model.Nationality</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">CMND / CCCD / Passport</th>
+                        @* BR-12: Khi hiển thị ra form chi tiết, dữ liệu nhạy cảm pháp lý này cũng đã được Controller bọc kín bằng dấu sao (*) an toàn *@
+                        <td><span class="text-danger font-weight-bold">@Model.IdentityNumber</span></td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Số Điện Thoại</th>
+                        <td>@Model.Phone</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Địa Chỉ Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Địa Chỉ Thường Trú</th>
+                        <td>@Model.Address</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Ngày Tạo Hồ Sơ</th>
+                        <td>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại danh sách</a>
+                <a asp-action="Edit" asp-route-id="@Model.GuestId" class="btn btn-warning">✏️ Điều Chỉnh Thông Tin</a>
+            </div>
+        </div>
+    </div>
+</div>

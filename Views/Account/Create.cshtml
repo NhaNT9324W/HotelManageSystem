@@ -1,0 +1,66 @@
+@model HotelManageSystem.Models.Account
+
+@* MAPPED: [Use Case: UC5.1 - Create Account]
+    TÁC NHÂN: Admin (Admin Rights / Root Access)
+*@
+
+@{
+    ViewData["Title"] = "Tạo Mới Tài Khoản";
+}
+
+<div class="container mt-4" style="max-width: 600px;">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">➕ Khởi Tạo Tài Khoản Nhân Viên Mới</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                @* Hiển thị toàn bộ danh sách lỗi kiểm tra trùng lặp từ Controller tung lên *@
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Tên Đăng Nhập (Username)</label>
+                    <input asp-for="Username" class="form-control" required placeholder="Nhập tên đăng nhập duy nhất..." />
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="PasswordHash" class="form-label">Mật Khẩu Ban Đầu</label>
+                    <input asp-for="PasswordHash" type="password" class="form-control" required placeholder="Nhập mật khẩu thô..." />
+                    <small class="text-muted">🔒 Hệ thống sẽ tự động băm MD5 mã mật khẩu này khi lưu xuống DB theo luật BR-01.</small>
+                    <span asp-validation-for="PasswordHash" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label">Địa Chỉ Email</label>
+                    <input asp-for="Email" type="email" class="form-control" required placeholder="username@@fpt.edu.vn" />
+                    <small class="text-muted">📧 Luật BR-02: Địa chỉ Email này phải là duy nhất, không được trùng lặp.</small>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Phone" class="form-label">Số Điện Thoại</label>
+                    <input asp-for="Phone" type="tel" class="form-control" placeholder="Nhập số điện thoại liên lạc..." />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="RoleId" class="form-label">Chức Vụ / Phân Quyền</label>
+                    <select asp-for="RoleId" class="form-select" asp-items="ViewBag.RoleId" required>
+                        <option value="">-- Chọn một vai trò hệ thống --</option>
+                    </select>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại danh sách</a>
+                    <button type="submit" class="btn btn-success">💾 Xác Nhận Tạo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

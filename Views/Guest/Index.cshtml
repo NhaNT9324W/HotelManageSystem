@@ -1,0 +1,90 @@
+﻿@model IEnumerable<HotelManageSystem.Models.Guest>
+
+@* MAPPED: [Use Case: UC15.0 - Manage Guest Profiles]
+    TÁC NHÂN: Receptionist (Lễ tân xử lý hành động)
+*@
+
+@{
+    ViewData["Title"] = "Quản Lý Hồ Sơ Khách Hàng";
+}
+
+<div class="container mt-4">
+    <h2>👥 Quản Lý Hồ Sơ Khách Hàng Lưu Trú</h2>
+    <hr />
+
+    @* Thực thi BR-26: Hiển thị hộp cảnh báo màu vàng nếu phát hiện trùng lặp thông tin liên lạc nhưng hệ thống vẫn cho phép lưu trữ *@
+    @if (TempData["WarningMessage"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>⚠️ Lưu Ý Nghiệp Vụ:</strong> @TempData["WarningMessage"]
+        </div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form asp-action="Index" method="get" class="row g-3">
+                <div class="col-md-9">
+                    <input type="text" name="searchString" class="form-control" 
+                           placeholder="Tìm kiếm nhanh khách hàng theo Họ tên hoặc Số điện thoại..." 
+                           value="@ViewData["CurrentFilter"]" />
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary w-100">🔍 Lọc Hồ Sơ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-3 d-flex justify-content-between align-items-center">
+        <a asp-action="Create" class="btn btn-success">➕ Lập Hồ Sơ Khách Mới</a>
+        <span class="text-muted">Tổng số khách lưu trú: @Model.Count()</span>
+    </div>
+
+    <table class="table table-bordered table-striped align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Mã Khách</th>
+                <th>Họ Và Tên</th>
+                <th>Giới Tính</th>
+                <th>Quốc Tịch</th>
+                <th>Số CMND/Passport</th>
+                <th>Số Điện Thoại</th>
+                <th>Email</th>
+                <th class="text-center">Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="8" class="text-center text-danger font-weight-bold">Hệ thống chưa ghi nhận hồ sơ khách hàng nào khớp với dữ liệu tìm kiếm!</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        @* BR-25: Mã định danh tự sinh dạng số, hiển thị Read-only *@
+                        <td>@item.GuestId</td>
+                        <td><strong>@item.FullName</strong></td>
+                        <td>@(item.Gender ?? "Chưa xác định")</td>
+                        <td>@(item.Nationality ?? "Việt Nam")</td>
+                        
+                        @* BR-12: Số CMND/CCCD/Passport hiển thị ở bảng đã được mã hóa dạng (*) tại Controller *@
+                        <td>@item.IdentityNumber</td>
+                        <td>@item.Phone</td>
+                        <td>@item.Email</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.GuestId" class="btn btn-sm btn-warning">✏️ Sửa</a>
+                            
+                            <a asp-action="Details" asp-route-id="@item.GuestId" class="btn btn-sm btn-info">👁️ Xem Chi Tiết</a>
+                            
+                            <a asp-action="History" asp-route-id="@item.GuestId" class="btn btn-sm btn-secondary">📜 Lịch Sử</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

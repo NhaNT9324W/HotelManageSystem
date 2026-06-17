@@ -22,6 +22,20 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+
+                        @* ============================================================================ *@
+                        @* PHÂN HỆ NGHIỆP VỤ DO THANH NHÃ PHÁT TRIỂN (MAPPED: UC5 & UC15) *@
+                        @* ============================================================================ *@
+                        <li class="nav-item">
+                            @* [Use Case: UC5.0 - Manage Account] Dành cho nhóm quyền Quản Trị (Admin Rights / Root Access) *@
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">🔑 Quản Lý Tài Khoản</a>
+                        </li>
+                        <li class="nav-item">
+                            @* [Use Case: UC15.0 - Manage Guest Profiles] Dành cho bộ phận Lễ tân (Receptionist) *@
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Index">👥 Quản Lý Khách Hàng</a>
+                        </li>
+                        @* ============================================================================ *@
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>

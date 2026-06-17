@@ -4,6 +4,7 @@ using HotelManageSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManageSystem.Migrations
 {
     [DbContext(typeof(HotelDbContext))]
-    partial class HotelDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260617023508_SeedInitialData")]
+    partial class SeedInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -136,47 +139,6 @@ namespace HotelManageSystem.Migrations
                     b.HasKey("GuestId");
 
                     b.ToTable("Guests");
-
-                    b.HasData(
-                        new
-                        {
-                            GuestId = 1,
-                            Address = "123 Nguyễn Trãi, Phường 2, Quận 5, TP. Hồ Chí Minh",
-                            CreatedAt = new DateTime(2026, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1995, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "hoangnam95@gmail.com",
-                            FullName = "Nguyễn Hoàng Nam",
-                            Gender = "Male",
-                            IdentityNumber = "079205001234",
-                            Nationality = "Việt Nam",
-                            Phone = "0909123456"
-                        },
-                        new
-                        {
-                            GuestId = 2,
-                            Address = "456 Đường Nguyễn Văn Cừ, Quận Ninh Kiều, TP. Cần Thơ",
-                            CreatedAt = new DateTime(2026, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1999, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "maichi.tran@fpt.edu.vn",
-                            FullName = "Trần Thị Mai Chi",
-                            Gender = "Female",
-                            IdentityNumber = "082201005678",
-                            Nationality = "Việt Nam",
-                            Phone = "0938987654"
-                        },
-                        new
-                        {
-                            GuestId = 3,
-                            Address = "London, United Kingdom",
-                            CreatedAt = new DateTime(2026, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1991, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "david.chopper@uk-mail.com",
-                            FullName = "David Chopper",
-                            Gender = "Male",
-                            IdentityNumber = "9876543210",
-                            Nationality = "United Kingdom",
-                            Phone = "0855222333"
-                        });
                 });
 
             modelBuilder.Entity("HotelManageSystem.Models.Role", b =>

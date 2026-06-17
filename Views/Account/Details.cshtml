@@ -1,0 +1,74 @@
+﻿@model HotelManageSystem.Models.Account
+
+@* MAPPED: [Use Case: UC5.6 - View Detail Account]
+    TÁC NHÂN: Admin (Quyền Quản Trị - Admin Rights / Root Access)
+*@
+
+@{
+    ViewData["Title"] = "Chi Tiết Tài Khoản Nhân Viên";
+}
+
+<div class="container mt-4" style="max-width: 650px;">
+    <div class="card shadow">
+        <div class="card-header bg-info text-dark">
+            <h4 class="mb-0">👁️ Chi Tiết Thông Tin Tài Khoản</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered align-middle mb-4">
+                <tbody>
+                    <tr>
+                        <th style="width: 35%;" class="table-dark">Mã Tài Khoản (ID)</th>
+                        <td><strong>@Model.AccountId</strong></td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Tên Đăng Nhập</th>
+                        <td><strong>@Model.Username</strong></td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Địa Chỉ Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Số Điện Thoại</th>
+                        @* BR-12: Số điện thoại hiển thị ở đây đã được Controller bọc kín bằng dấu sao (*) bảo mật *@
+                        <td><span class="text-primary font-weight-bold">@Model.Phone</span></td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Chức Vụ / Vai Trò</th>
+                        <td>
+                            <span class="badge bg-info text-dark">@Model.Role.RoleName</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Trạng Thái Hệ Thống</th>
+                        <td>
+                            @if (Model.Status == "Active")
+                            {
+                                <span class="badge bg-success">Đang Hoạt Động (Active)</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Bị Vô Hiệu Hóa (Inactive)</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Ngày Khởi Tạo</th>
+                        <td>@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    </tr>
+                    <tr>
+                        <th class="table-dark">Cập Nhật Cuối</th>
+                        <td>@Model.UpdatedAt.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            @* 🔒 Lưu ý bảo mật BR-12: Mật khẩu (PasswordHash) tuyệt đối không được trả về hoặc hiển thị tại màn hình này để tránh rò rỉ dữ liệu. *@
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" class="btn btn-secondary">🔙 Quay lại danh sách</a>
+                <a asp-action="Edit" asp-route-id="@Model.AccountId" class="btn btn-warning">✏️ Điều Chỉnh Tài Khoản</a>
+            </div>
+        </div>
+    </div>
+</div>
